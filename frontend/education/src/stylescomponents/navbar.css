@@ -1,0 +1,18 @@
+.custom-navbar {
+  background-color: #ffffff !important;
+  padding: 2px !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-navbar .nav-link {
+    color: rgb(0, 0, 0) !important;
+    font-size: 14px;
+  }
+  
+  .custom-navbar .profile-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  

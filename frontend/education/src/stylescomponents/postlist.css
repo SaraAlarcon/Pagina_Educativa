@@ -1,0 +1,92 @@
+.post-item {
+  background-color: white;
+  padding: 15px;
+  border-radius: 3px !important;
+  width: 100%;
+  max-width: 600px !important;
+  height: 500px !important;
+  margin-top: 10px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.post-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.post-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.uploaded-img {
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.download-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.text-muted {
+  text-align: center;
+}
+
+.post-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.comments-section {
+  margin-top: 10px;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.comment-list li {
+  background: #f1f1f1;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
