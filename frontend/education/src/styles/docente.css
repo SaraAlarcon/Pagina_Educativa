@@ -9,97 +9,99 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background-color: rgb(239, 239, 239) !important;
-  font-family: Arial, sans-serif;
+  background-color: #f5f7fa !important;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.docente-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(0, 169, 244, 0.05) 0%, rgba(0, 236, 164, 0.05) 100%);
 }
 
 .content-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  height: calc(100vh - 56px); /* Resta la altura del navbar */
-  padding: 20px;
+  padding: 0;
+  margin-top: 60px;
+  position: relative;
+}
+
+.content-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
 }
 
 /* Columnas laterales */
-.sidebar-left,
-.sidebar-right {
-  width: 22%;
-  padding-top: 20px !important ;
-  border-radius: 10px;
+.sidebar-left-col,
+.sidebar-right-col {
   position: sticky;
-  margin-top: 100px !important;
+  top: 70px;
+  height: calc(100vh - 70px);
 }
 
-/* Noticias - Izquierda */
-.sidebar-left {
-  margin-left: 350px;
+/* Sección central - Publicaciones */
+.posts-section-col {
+  flex: 1;
+  padding: 20px 15px;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-/* Opciones - Derecha */
-.sidebar-right {
-  margin-right: 350px;
-}
-/* Centro - Publicaciones */
-.posts-section {
-  width: 100%;
+.posts-content {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  max-height: 80vh; /* Ajusta la altura máxima de la sección de publicaciones */
-  overflow-y: auto; /* Activa el scroll solo en publicaciones */
-  align-items: center;
-  margin-bottom: 10px;
+  gap: 20px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
-/* Formulario de publicación */
-.post-form-container {
-  width: 100%;
-  background-color: white;
-  padding: 20px;
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar-left-col,
+  .sidebar-right-col {
+    position: static;
+    height: auto;
+    width: 100%;
+  }
+
+  .posts-section-col {
+    order: 1;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar-left-col {
+    order: 2;
+  }
+
+  .sidebar-right-col {
+    order: 5;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 193, 217, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #00a9f4, #00eca4);
   border-radius: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-bottom: 15px;
-  overflow-x: hidden !important;
 }
 
-.post-form-container h2 {
-  font-size: 20px !important;
-  margin-bottom: 10px !important;
+::-webkit-scrollbar-thumb:hover {
+  background: #00daba;
 }
-
-/* Lista de publicaciones con scroll */
-.post-list-container {
-  width: 100%;
-  max-height: 500px;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-/* Publicaciones individuales */
-.post-item {
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  width: 100%;
-  margin-bottom: 5px;
-  margin-top: 20px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.posts-section::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  display: none;
-}
-
-/* Ocultar scrollbar */
-.post-list-container::-webkit-scrollbar,
-.sidebar-left::-webkit-scrollbar,
-.sidebar-right::-webkit-scrollbar {
-  display: none;
-}
-
-
 
