@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Container, Row, Col } from "react-bootstrap"
-import { FaSearch, FaPaperPlane, FaEllipsisV, FaPhone, FaVideo, FaSmile, FaPaperclip } from "react-icons/fa"
+import { FaSearch, FaPaperPlane, FaPaperclip } from "react-icons/fa"
 import  CustomNavbar  from "../../components/navbar"
 import Sidebar from "../../components/sidebar"
 import "../../styles/DocenteStyle/ChatsDocente.css"
@@ -222,17 +222,7 @@ const ChatsPage = () => {
                             <p className="user-status">{selectedChat.online ? "En línea" : "Desconectado"}</p>
                           </div>
                         </div>
-                        <div className="chat-actions">
-                          <button className="action-button">
-                            <FaPhone />
-                          </button>
-                          <button className="action-button">
-                            <FaVideo />
-                          </button>
-                          <button className="action-button">
-                            <FaEllipsisV />
-                          </button>
-                        </div>
+                    
                       </div>
 
                       <div className="chat-messages">
@@ -248,9 +238,6 @@ const ChatsPage = () => {
 
                       <form className="chat-input" onSubmit={handleSendMessage}>
                         <div className="input-actions-left">
-                          <button type="button" className="input-action">
-                            <FaSmile />
-                          </button>
                           <button type="button" className="input-action">
                             <FaPaperclip />
                           </button>

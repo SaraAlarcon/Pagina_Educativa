@@ -59,17 +59,6 @@ const Sidebar = () => {
               <div className="sidebar-text">Estudiantes</div>
             </Link>
           </li>
-
-
-          {/* Estadísticas */}
-          <li className="sidebar-item">
-            <Link to="/estadisticas" className="sidebar-link">
-              <div className="sidebar-icon">
-                <FaChartBar />
-              </div>
-              <div className="sidebar-text">Estadísticas</div>
-            </Link>
-          </li>
         </ul>
 
         

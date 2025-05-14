@@ -1,0 +1,495 @@
+/* Variables y estilos base */
+:root {
+  --primary: #00a9f4;
+  --secondary: #00eca4;
+  --text-dark: #203d55;
+  --text-light: #8a9aa9;
+  --bg-light: #f8fafc;
+  --border-light: rgba(0, 193, 217, 0.1);
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.05);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition: all 0.3s ease;
+}
+
+/* Estilos generales */
+.actividades-page {
+  min-height: 100vh;
+  background: var(--bg-light);
+  font-family: "Poppins", sans-serif;
+  color: var(--text-dark);
+}
+
+.content-container {
+  padding: 0;
+  margin-top: 60px;
+}
+
+.content-wrapper {
+  display: flex;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* Sidebar */
+.sidebar-left-col {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  height: calc(100vh - 60px);
+  width: 220px;
+  z-index: 100;
+}
+
+/* Contenido principal */
+.actividades-section-col {
+  flex: 1;
+  padding: 20px 15px;
+  margin-left: 220px;
+}
+
+.actividades-content {
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 30px;
+  min-height: calc(100vh - 110px);
+}
+
+/* Encabezado */
+.actividades-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.actividades-title h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-icon {
+  color: var(--primary);
+}
+
+.actividades-title p {
+  color: var(--text-light);
+  margin: 5px 0 0;
+}
+
+/* Buscador */
+.search-box {
+  position: relative;
+  width: 300px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--bg-light);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Selector de clases */
+.clase-selector-container {
+  margin-bottom: 25px;
+  background: var(--bg-light);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.clase-selector-label {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.clase-selector-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.clase-selector-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: var(--radius-sm);
+  background: white;
+  border: 1px solid var(--border-light);
+  color: var(--text-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.clase-selector-btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--clase-color, var(--primary));
+  color: var(--clase-color, var(--primary));
+}
+
+.clase-selector-btn.active {
+  background: var(--clase-color, var(--primary));
+  color: white;
+  border-color: var(--clase-color, var(--primary));
+}
+
+/* Grid de actividades */
+.actividades-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 25px;
+}
+
+/* Tarjeta para crear actividad */
+.crear-actividad-card,
+.actividades-list-container {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  height: fit-content;
+}
+
+/* Agregar estas reglas para mantener un tamaño consistente */
+
+/* Asegurar altura mínima para el contenedor de actividades */
+.actividades-list-container {
+  min-height: 400px;
+}
+
+.crear-actividad-card {
+  border-top: 4px solid var(--primary);
+}
+
+.actividades-list-container {
+  border-top: 4px solid var(--secondary);
+}
+
+.card-header,
+.list-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card-header h3,
+.list-header h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  color: var(--primary);
+}
+
+.list-icon {
+  color: var(--secondary);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+/* Formulario */
+.form-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+  padding: 10px;
+  background: var(--bg-light);
+  margin-bottom: 15px;
+}
+
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-sm);
+  background: var(--bg-light);
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.file-input-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-format-hint {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+
+.crear-btn {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-weight: 600;
+  color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.crear-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 193, 217, 0.2);
+}
+
+/* Lista de actividades */
+.actividades-list {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Asegurar que el contenedor de la lista tenga altura mínima */
+.actividades-list {
+  min-height: 300px;
+}
+
+.actividad-card {
+  background: var(--bg-light);
+  border-radius: var(--radius-sm);
+  padding: 15px;
+  transition: var(--transition);
+  border-left: 4px solid var(--primary);
+}
+
+.actividad-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.actividad-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.actividad-header h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.actividad-estado {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.estado-activa {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+}
+
+.estado-finalizada {
+  background: rgba(158, 158, 158, 0.1);
+  color: #9e9e9e;
+}
+
+.estado-pendiente {
+  background: rgba(255, 152, 0, 0.1);
+  color: #ff9800;
+}
+
+.actividad-descripcion {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.actividad-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actividad-meta {
+  display: flex;
+  gap: 15px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.actividad-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: white;
+  border: none;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.action-btn.edit:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.action-btn.delete:hover {
+  background: #f44336;
+  color: white;
+}
+
+/* Estado vacío */
+.empty-actividades {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Asegurar que el empty state tenga la misma altura */
+.empty-actividades {
+  min-height: 300px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.empty-actividades h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.empty-actividades p {
+  color: var(--text-light);
+  max-width: 400px;
+}
+
+/* Estilos para los modales */
+.modal-header {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+.modal-footer .btn-primary {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+}
+
+.modal-footer .btn-danger {
+  background: #f44336;
+  border: none;
+}
+
+.text-danger {
+  color: #f44336;
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .sidebar-left-col {
+    width: 70px;
+  }
+  .actividades-section-col {
+    margin-left: 70px;
+  }
+}
+
+@media (max-width: 992px) {
+  .actividades-grid {
+    grid-template-columns: 1fr;
+  }
+  .actividades-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .search-box {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-left-col {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .actividades-section-col {
+    margin-left: 0;
+  }
+  .content-wrapper {
+    flex-direction: column;
+  }
+  .clase-selector-buttons {
+    flex-direction: column;
+  }
+  .actividad-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

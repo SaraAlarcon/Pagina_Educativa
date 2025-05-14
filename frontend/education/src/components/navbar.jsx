@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faHome, faBars, faSearch, faBell, faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { faHome, faBars, faSearch, faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import "../stylescomponents/navbar.css"
 
 const CustomNavbar = () => {
@@ -34,17 +34,10 @@ const CustomNavbar = () => {
           <Nav className="ms-auto nav-links">
             <Nav.Link href="/docente" className="nav-item">
               <FontAwesomeIcon icon={faHome} className="nav-icon" />
-              <span className="nav-text">Inicio</span>
-            </Nav.Link>
-
-            <Nav.Link href="#" className="nav-item">
-              <FontAwesomeIcon icon={faBell} className="nav-icon" />
-              <span className="nav-text">Notificaciones</span>
             </Nav.Link>
 
             <Nav.Link href="/chats" className="nav-item">
               <FontAwesomeIcon icon={faEnvelope} className="nav-icon" />
-              <span className="nav-text">Mensajes</span>
             </Nav.Link>
 
             <NavDropdown
@@ -61,7 +54,6 @@ const CustomNavbar = () => {
               className="profile-dropdown"
             >
               <NavDropdown.Item href="#">Mi Perfil</NavDropdown.Item>
-              <NavDropdown.Item href="#">Configuración</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#">Cerrar Sesión</NavDropdown.Item>
             </NavDropdown>

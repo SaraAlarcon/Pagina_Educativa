@@ -41,7 +41,7 @@ const PostForm = ({ addPost }) => {
         <Form.Group>
           <Form.Control
             as="textarea"
-            rows={4}
+            rows={6}
             placeholder="Comparte conocimientos, recursos o novedades con tus estudiantes..."
             className="styled-textarea"
             value={postText}
@@ -81,16 +81,6 @@ const PostForm = ({ addPost }) => {
             <label htmlFor="file-upload" className="media-action-btn">
               <FaFileAlt className="action-icon" />
               <span className="action-text">Documento</span>
-            </label>
-
-            <label htmlFor="file-upload" className="media-action-btn">
-              <FaVideo className="action-icon" />
-              <span className="action-text">Video</span>
-            </label>
-
-            <label className="media-action-btn">
-              <FaLink className="action-icon" />
-              <span className="action-text">Enlace</span>
             </label>
           </div>
 

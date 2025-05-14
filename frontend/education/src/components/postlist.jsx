@@ -1,5 +1,5 @@
 import { Card, Button } from "react-bootstrap"
-import { FaClock, FaDownload, FaThumbsUp, FaComment, FaShare, FaBookmark, FaFileAlt } from "react-icons/fa"
+import { FaClock, FaDownload, FaThumbsUp, FaComment, FaBookmark, FaFileAlt, FaEraser } from "react-icons/fa"
 import "../stylescomponents/postlist.css"
 
 const PostList = ({ posts }) => {
@@ -74,8 +74,8 @@ const PostList = ({ posts }) => {
                 <span className="action-text">Comentar</span>
               </Button>
               <Button variant="link" className="action-btn">
-                <FaShare className="action-icon" />
-                <span className="action-text">Compartir</span>
+                <FaEraser className="action-icon" />
+                <span className="action-text">Borrar</span>
               </Button>
             </div>
           </Card.Body>
