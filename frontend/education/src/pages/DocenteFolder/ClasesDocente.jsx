@@ -2,19 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap"
-import {
-  FaPlus,
-  FaEdit,
-  FaTrash,
-  FaSearch,
-  FaCalendarAlt,
-  FaClock,
-  FaUsers,
-  FaBook,
-  FaSave,
-  FaTimes,
-  FaChalkboardTeacher,
-} from "react-icons/fa"
+import {FaPlus, FaEdit, FaTrash, FaSearch, FaCalendarAlt, FaClock, FaUsers, FaBook, FaSave, FaTimes ,FaChalkboardTeacher, } from "react-icons/fa"
 import CustomNavbar from "../../components/navbar"
 import Sidebar from "../../components/sidebar"
 import "../../styles/DocenteStyle/ClasesDocente.css"
@@ -30,24 +18,18 @@ const ClasesPage = () => {
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
-    fecha: "",
-    horaInicio: "",
-    horaFin: "",
-    estudiantes: ""
+    fecha: ""
   })
 
-  // Datos de ejemplo para clases
+  // Datos de ejemplo para clases - IMPORTANTE: ID como string para que coincida con el parámetro de la URL
   useEffect(() => {
     // Simulación de carga de datos desde una API
     const clasesEjemplo = [
       {
-        id: 4,
-        nombre: "Programación Web",
+        id: "4", // Cambiado a string para que coincida con el parámetro de la URL
+        nombre: "Grupo A",
         descripcion: "Desarrollo de aplicaciones web con React y Node.js",
         fecha: "2023-05-18",
-        horaInicio: "16:30",
-        horaFin: "18:30",
-        estudiantes: 22,
         color: "#ff9800",
       },
     ]
@@ -67,28 +49,26 @@ const ClasesPage = () => {
     setFormData({
       nombre: "",
       descripcion: "",
-      fecha: "",
-      horaInicio: "",
-      horaFin: "",
-      estudiantes: "",
+      fecha: ""
     })
     setShowCreateModal(true)
   }
 
-  const handleOpenEditModal = (clase) => {
+  const handleOpenEditModal = (clase, e) => {
+    e.stopPropagation()
+    e.preventDefault()
     setCurrentClase(clase)
     setFormData({
       nombre: clase.nombre,
       descripcion: clase.descripcion,
-      fecha: clase.fecha,
-      horaInicio: clase.horaInicio,
-      horaFin: clase.horaFin,
-      estudiantes: clase.estudiantes.toString()
+      fecha: clase.fecha
     })
     setShowEditModal(true)
   }
-
-  const handleOpenDeleteModal = (clase) => {
+ 
+  const handleOpenDeleteModal = (clase, e) => {
+    e.stopPropagation()
+    e.preventDefault()
     setCurrentClase(clase)
     setShowDeleteModal(true)
   }
@@ -107,8 +87,11 @@ const ClasesPage = () => {
     const colors = ["#00a9f4", "#00eca4", "#9c27b0", "#ff9800", "#e91e63", "#4caf50"]
     const randomColor = colors[Math.floor(Math.random() * colors.length)]
 
+    // Generar un ID único como string
+    const newId = (clases.length + 1).toString()
+
     const newClase = {
-      id: clases.length + 1,
+      id: newId,
       ...formData,
       estudiantes: Number.parseInt(formData.estudiantes) || 0,
       color: randomColor,
@@ -121,7 +104,10 @@ const ClasesPage = () => {
   const handleEditClase = () => {
     const updatedClases = clases.map((clase) => {
       if (clase.id === currentClase.id) {
-        return {clase, formData, estudiantes: Number.parseInt(formData.estudiantes) || 0,
+        return {
+          ...clase,
+          ...formData,
+          estudiantes: Number.parseInt(formData.estudiantes) || 0,
         }
       }
       return clase
@@ -195,15 +181,19 @@ const ClasesPage = () => {
                               <FaChalkboardTeacher />
                             </div>
                             <div className="clase-actions">
-                              <Button variant="link" className="edit-btn" onClick={() => handleOpenEditModal(clase)}>
-                                <FaEdit />
+                              <Button
+                                variant="link"
+                                className="edit-btn"
+                                onClick={(e) => handleOpenEditModal(clase, e)}
+                              >
+                                <FaEdit size={16} />
                               </Button>
                               <Button
                                 variant="link"
                                 className="delete-btn"
-                                onClick={() => handleOpenDeleteModal(clase)}
+                                onClick={(e) => handleOpenDeleteModal(clase, e)}
                               >
-                                <FaTrash />
+                                <FaTrash size={16} />
                               </Button>
                             </div>
                           </div>
@@ -214,21 +204,7 @@ const ClasesPage = () => {
                               <div className="detail-item">
                                 <FaCalendarAlt className="detail-icon" />
                                 <span>{clase.fecha}</span>
-                              </div>
-                              <div className="detail-item">
-                                <FaClock className="detail-icon" />
-                                <span>
-                                  {clase.horaInicio} - {clase.horaFin}
-                                </span>
-                              </div>
-                              <div className="detail-item">
-                                <FaUsers className="detail-icon" />
-                                <span>{clase.estudiantes} estudiantes</span>
-                              </div>
-                              <div className="detail-item">
-                                <FaBook className="detail-icon" />
-                                <span>{clase.materiales}</span>
-                              </div>
+                              </div>                        
                             </div>
                           </div>
                         </div>
@@ -267,7 +243,7 @@ const ClasesPage = () => {
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
-                placeholder="Ej: Matemáticas Avanzadas"
+                placeholder="Ej: Grupo A"
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -283,40 +259,13 @@ const ClasesPage = () => {
             </Form.Group>
             <Row>
               <Col md={6}>
-                <Form.Group className="mb-3">
+                <Form.Group className="mb-3"> 
                   <Form.Label>Fecha</Form.Label>
                   <Form.Control type="date" name="fecha" value={formData.fecha} onChange={handleInputChange} />
                 </Form.Group>
               </Col>
-              <Col md={3}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Hora inicio</Form.Label>
-                  <Form.Control
-                    type="time"
-                    name="horaInicio"
-                    value={formData.horaInicio}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={3}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Hora fin</Form.Label>
-                  <Form.Control type="time" name="horaFin" value={formData.horaFin} onChange={handleInputChange} />
-                </Form.Group>
-              </Col>
             </Row>
-            <Form.Group className="mb-3">
-              <Form.Label>Número de estudiantes</Form.Label>
-              <Form.Control
-                type="number"
-                name="estudiantes"
-                value={formData.estudiantes}
-                onChange={handleInputChange}
-                placeholder="Ej: 25"
-              />
-            </Form.Group>
-        
+          
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -343,7 +292,7 @@ const ClasesPage = () => {
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
-                placeholder="Ej: Matemáticas Avanzadas"
+                placeholder="Ej: Grupo A"
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -364,35 +313,7 @@ const ClasesPage = () => {
                   <Form.Control type="date" name="fecha" value={formData.fecha} onChange={handleInputChange} />
                 </Form.Group>
               </Col>
-              <Col md={3}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Hora inicio</Form.Label>
-                  <Form.Control
-                    type="time"
-                    name="horaInicio"
-                    value={formData.horaInicio}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={3}>
-                <Form.Group className="mb-3">
-                  <Form.Label>Hora fin</Form.Label>
-                  <Form.Control type="time" name="horaFin" value={formData.horaFin} onChange={handleInputChange} />
-                </Form.Group>
-              </Col>
             </Row>
-            <Form.Group className="mb-3">
-              <Form.Label>Número de estudiantes</Form.Label>
-              <Form.Control
-                type="number"
-                name="estudiantes"
-                value={formData.estudiantes}
-                onChange={handleInputChange}
-                placeholder="Ej: 25"
-              />
-            </Form.Group>
-            
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -435,3 +356,4 @@ const ClasesPage = () => {
 }
 
 export default ClasesPage
+

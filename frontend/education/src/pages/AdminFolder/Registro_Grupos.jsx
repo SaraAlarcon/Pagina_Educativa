@@ -1,8 +1,6 @@
-"use client"
-
 import { useState } from "react"
-import { Form, Button, Card } from "react-bootstrap"
-import { FaUsers, FaHome, FaUserGraduate, FaChalkboardTeacher, FaUserPlus, FaTrash, FaLayerGroup } from "react-icons/fa"
+import { Form, Button, Card, Table } from "react-bootstrap"
+import { FaUsers, FaHome, FaUserGraduate, FaChalkboardTeacher, FaUserPlus, FaTrash, FaLayerGroup, FaDoorOpen } from "react-icons/fa"
 import "../../styles/AdminStyle/Registros.css"
 
 const RegistroGrupos = () => {
@@ -10,6 +8,7 @@ const RegistroGrupos = () => {
   const [grupoNombre, setGrupoNombre] = useState("")
   const [docenteAsignado, setDocenteAsignado] = useState("")
   const [estudiantes, setEstudiantes] = useState([""])
+  const [gruposRegistrados, setGruposRegistrados] = useState([])
 
   const handleAgregarEstudiante = () => {
     setEstudiantes([...estudiantes, ""])
@@ -37,7 +36,7 @@ const RegistroGrupos = () => {
       docente: docenteAsignado,
       estudiantes: estudiantes.filter((e) => e.trim() !== ""),
     }
-    console.log("Grupo registrado:", grupoData)
+    setGruposRegistrados([...gruposRegistrados, grupoData])
     setGrupoId("")
     setGrupoNombre("")
     setDocenteAsignado("")
@@ -70,6 +69,11 @@ const RegistroGrupos = () => {
               <FaUsers /> Grupos
             </a>
           </li>
+          <li>
+            <a href="/login" className="sidebar-link">
+              <FaDoorOpen /> Cerrar Sesión
+            </a>
+          </li>
         </ul>
       </div>
 
@@ -95,7 +99,7 @@ const RegistroGrupos = () => {
                 type="text"
                 value={grupoNombre}
                 onChange={(e) => setGrupoNombre(e.target.value)}
-                placeholder="Ej: Matemáticas Avanzadas"
+                placeholder="Ej: Grupo A"
                 required
               />
             </Form.Group>
@@ -148,6 +152,32 @@ const RegistroGrupos = () => {
             </Button>
           </Form>
         </Card>
+
+        {gruposRegistrados.length > 0 && (
+          <Card className="registro-card p-4 mt-4">
+            <h4 className="mb-3">Grupos Registrados</h4>
+            <Table responsive bordered hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Docente</th>
+                  <th>Estudiantes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gruposRegistrados.map((grupo, index) => (
+                  <tr key={index}>
+                    <td>{grupo.id}</td>
+                    <td>{grupo.grupo}</td>
+                    <td>{grupo.docente}</td>
+                    <td>{grupo.estudiantes.join(", ")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Card>
+        )}
       </div>
     </div>
   )

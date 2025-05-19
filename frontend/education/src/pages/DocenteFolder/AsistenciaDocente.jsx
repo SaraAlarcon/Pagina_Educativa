@@ -10,9 +10,9 @@ import "../../styles/DocenteStyle/AsistenciaDocente.css"
 
 const TomaListaDocente = () => {
   const clases = [
-    { id: 1, nombre: "Programación I", color: "#00a9f4" },
-    { id: 2, nombre: "Estructuras de Datos", color: "#00eca4" },
-    { id: 3, nombre: "Base de Datos", color: "#9c27b0" },
+    { id: 1, nombre: "Grupo: A", color: "#00a9f4" },
+    { id: 2, nombre: "Grupo: B", color: "#00eca4" },
+    { id: 3, nombre: "Grupo: C", color: "#9c27b0" },
   ]
 
   const [claseSeleccionada, setClaseSeleccionada] = useState(clases[0].id)

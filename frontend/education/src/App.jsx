@@ -1,6 +1,7 @@
 import React from "react";
 import {Route, Routes } from "react-router-dom";
 import Docente from "./pages/Docente.jsx";
+import Alumno from "./pages/Alumno.jsx";
 import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import Admin from "./pages/Admin.jsx";
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/docente" element={<Docente />} />
+      <Route path="/alumno" element={<Alumno />} />
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/registro-estudiante" element={<Registro_Estudiante />} />

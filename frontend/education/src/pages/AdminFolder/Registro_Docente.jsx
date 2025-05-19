@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Form, Button, Card } from "react-bootstrap"
-import { FaUserPlus, FaHome, FaUserGraduate, FaChalkboardTeacher, FaUsers } from "react-icons/fa"
+import { Form, Button, Card, Table } from "react-bootstrap"
+import { FaUserPlus, FaHome, FaUserGraduate, FaChalkboardTeacher, FaUsers, FaDoorOpen } from "react-icons/fa"
 
 const RegistroDocente = () => {
   const [formData, setFormData] = useState({
@@ -8,17 +8,25 @@ const RegistroDocente = () => {
     nombre: "",
     apellido: "",
     correo: "",
+    contraseña: "",
+    grupos: ["G-01"],
   })
+  const [docentesRegistrados, setDocentesRegistrados] = useState([])
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
+    const { name, value, options } = e.target
+    if (name === "grupos") {
+      const selectedOptions = Array.from(options).filter(o => o.selected).map(o => o.value)
+      setFormData({ ...formData, grupos: selectedOptions })
+    } else {
+      setFormData({ ...formData, [name]: value })
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Docente registrado:", formData)
-    setFormData({ idDocente: "", nombre: "", apellido: "", correo: "" })
+    setDocentesRegistrados([...docentesRegistrados, formData])
+    setFormData({ idDocente: "", nombre: "", apellido: "", correo: "", contraseña: "", grupos: ["G-01"] })
   }
 
   return (
@@ -47,11 +55,16 @@ const RegistroDocente = () => {
               <FaUsers /> Grupos
             </a>
           </li>
+          <li>
+            <a href="/login" className="sidebar-link">
+              <FaDoorOpen /> Cerrar Sesión
+            </a>
+          </li>
         </ul>
       </div>
 
       {/* Contenido principal */}
-      <div className="registro-estudiante-container">
+      <div className="registro-grupos-container">
         <Card className="registro-card p-4">
           <h3 className="mb-4">Registro de Docente</h3>
           <Form onSubmit={handleSubmit}>
@@ -88,7 +101,7 @@ const RegistroDocente = () => {
                 required
               />
             </Form.Group>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-3">
               <Form.Label>Correo Electrónico</Form.Label>
               <Form.Control
                 type="email"
@@ -99,11 +112,65 @@ const RegistroDocente = () => {
                 required
               />
             </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                name="contraseña"
+                value={formData.contraseña}
+                onChange={handleChange}
+                placeholder="Ingrese una contraseña"
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-4">
+              <Form.Label>Asignar Grupo(s)</Form.Label>
+              <Form.Select
+                name="grupos"
+                multiple
+                value={formData.grupos}
+                onChange={handleChange}
+                required
+              >
+                <option value="G-01">G-01</option>
+                <option value="G-02">G-02</option>
+                <option value="G-03">G-03</option>
+              </Form.Select>
+              <small className="text-muted">Usa Ctrl (Cmd en Mac) para seleccionar múltiples grupos</small>
+            </Form.Group>
             <Button type="submit" className="btn-primary">
               <FaUserPlus className="me-2" /> Registrar Docente
             </Button>
           </Form>
         </Card>
+
+        {docentesRegistrados.length > 0 && (
+          <Card className="registro-card p-4 mt-4">
+            <h4 className="mb-3">Docentes Registrados</h4>
+            <Table responsive bordered hover>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Correo</th>
+                  <th>Grupo(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {docentesRegistrados.map((docente, index) => (
+                  <tr key={index}>
+                    <td>{docente.idDocente}</td>
+                    <td>{docente.nombre}</td>
+                    <td>{docente.apellido}</td>
+                    <td>{docente.correo}</td>
+                    <td>{docente.grupos.join(", ")}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </Card>
+        )}
       </div>
     </div>
   )
