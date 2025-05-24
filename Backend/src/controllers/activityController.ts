@@ -3,6 +3,7 @@ import { ActivityService } from "../services/activityservices";
 import { CreateActivityDto,  } from "../dtos/activitydto/CreateActivity";
 import {UpdateActivityDto} from "../dtos/activitydto/UpdateActivity"
 import { authenticateJWT } from "../middlewares/authMiddleware";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export class ActivityController {
   private service = new ActivityService();

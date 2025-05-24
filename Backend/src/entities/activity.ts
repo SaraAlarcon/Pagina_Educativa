@@ -4,11 +4,13 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
+    OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { Docente } from "./Teacher";
 import { Grupo } from "./Grupo";
+import { ActivitySubmission } from "./ActivitySubmission";
 
 @Entity()
 export class Activity {
@@ -43,4 +45,7 @@ export class Activity {
 
   @Column({ default: false })
   esParaTodos!: boolean;
+
+  @OneToMany(() => ActivitySubmission, (submission) => submission.activity)
+  entregas!: ActivitySubmission[];
 }

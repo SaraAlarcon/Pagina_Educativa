@@ -33,9 +33,9 @@ export class User {
 
   // src/entities/User.ts
 
-@OneToMany(() => Message, (message) => message.sender)
-sentMessages!: Message[];
+  @OneToMany(() => Message, (message) => message.sender)
+  sentMessages!: Message[];
 
-@OneToMany(() => Message, (message) => message.receiver)
-receivedMessages!: Message[];
+  @OneToMany(() => Message, (message) => message.receiver)
+  receivedMessages!: Message[];
 }

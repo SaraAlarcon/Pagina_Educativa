@@ -15,7 +15,7 @@ export class ClassController {
       return res.status(201).json(newClass);
       
     } catch (error: any) {
-      const message = error.message?.includes("no encontrad") 
+      const message = error.message?.includes("no encontrado") 
         ? error.message 
         : "Error al crear la clase";
       return res.status(400).json({ message });

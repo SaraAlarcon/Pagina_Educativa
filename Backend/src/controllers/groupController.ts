@@ -24,13 +24,13 @@ export class GrupoController {
     }
   }
 
-  async getById(req: Request, res: Response) {
+  async getById(req: Request, res: Response) :Promise<void>{ 
     try {
       const id = parseInt(req.params.id);
       const grupo = await this.service.findById(id);
       
       if (!grupo) {
-        return res.status(404).json({ message: "Grupo no encontrado" });
+         res.status(404).json({ message: "Grupo no encontrado" });
       }
       res.json(grupo);
     } catch (error) {
@@ -38,14 +38,14 @@ export class GrupoController {
     }
   }
 
-  async update(req: Request, res: Response) {
+  async update(req: Request, res: Response) :Promise<void> {
     try {
       const id = parseInt(req.params.id);
       const data: UpdateGrupoDto = req.body;
       const grupo = await this.service.update(id, data);
       
       if (!grupo) {
-        return res.status(404).json({ message: "Grupo no encontrado" });
+        res.status(404).json({ message: "Grupo no encontrado" });
       }
       res.json(grupo);
     } catch (error) {
@@ -53,13 +53,13 @@ export class GrupoController {
     }
   }
 
-  async delete(req: Request, res: Response) {
+  async delete(req: Request, res: Response) :Promise<void>{
     try {
       const id = parseInt(req.params.id);
       const result = await this.service.deleteIfEmpty(id);
       
       if (!result) {
-        return res.status(400).json({ message: "Grupo no está vacío" });
+         res.status(400).json({ message: "Grupo no está vacío" });
       }
       res.status(204).send();
     } catch (error) {

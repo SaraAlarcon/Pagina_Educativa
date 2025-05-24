@@ -10,46 +10,54 @@ import postRoutes from "./routes/postrouter";
 import userrouter from "./routes/userrouter";
 import groupRouter from './routes/grouprouter';
 import { ChatService } from "./services/ChatService";
+import { socketAuthMiddleware } from './middlewares/authMiddleware';
 
 // Configuración Express
 const app = express();
 const httpServer = createServer(app);
 
-// Configuración de CORS (compartida para Express y Socket.io)
+// Configuración CORS compartida
 const corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 };
 
-// Configuración de Socket.io
+// Configuración Socket.io
 const io = new Server(httpServer, {
-  cors: corsOptions
+  cors: {
+    origin: "*" // Ajusta en producción
+  }
 });
-
-// Inicializar servicio de chat
-new ChatService(io);
-
-// Middlewares
+// Middlewares esenciales
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Routes
+io.use(socketAuthMiddleware); // Aplica el middleware
+io.on('connection', (socket) => {
+  console.log(`Usuario conectado: ${socket.data.user.email}`);
+  // Tu lógica existente de conexión WebSocket
+  // Ahora puedes acceder al usuario autenticado con:
+  // const userId = socket.data.user.id;
+  // const userEmail = socket.data.user.email;
+});
+// Rutas base
 app.use("/api/activities", activityRoutes);
 app.use("/api/class", classRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/user", userrouter);
-app.use('/groups', groupRouter);
+app.use('/api/groups', groupRouter);
 
-// Initialize database
+// Inicialización de la base de datos
 AppDataSource.initialize()
   .then(() => {
     console.log("Database connected");
     
-    httpServer.listen(3000, () => {
-      console.log("Server with WebSockets running on port 3000");
+    // Iniciar servicio de chat después de la BD
+    new ChatService(io);
+    
+    const PORT = process.env.PORT || 3000;
+    httpServer.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((error) => console.log("Database connection error:", error));

@@ -23,7 +23,7 @@ export class MessageService {
     const mensaje = await messageRepository.create(data);
     
     // Notificación al receptor
-    await this.NotificationService.createPersonalNotification({
+    await this.notificationService.createPersonalNotification({
       message: "Tienes un nuevo mensaje",
       type: "message",
       referenceId: mensaje.id,

@@ -7,7 +7,7 @@ import {UpdateAlumnoDto} from "../dtos/Alumnodto/UpdateAlumno";
 import { SubmitActivityDto } from "../dtos/Alumnodto/SubmitActivityDto";
 import { Activity } from "../entities/activity";
 import { ActivitySubmission } from "../entities/ActivitySubmission";
-import { notificationService } from "./NotificationService"; // Importa la instancia
+import { NotificationService, notificationService } from "./NotificationService"; // Importa la instancia
 import * as bcrypt from 'bcrypt';
 import { In } from 'typeorm';
 import { promises } from "dns";

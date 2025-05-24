@@ -8,15 +8,19 @@ import { In } from "typeorm";
 import { NotificationService } from "./NotificationService";
 import * as bcrypt from 'bcrypt';
 import { CreateActivityDto } from "../dtos/activitydto/CreateActivity";
+import { ActivityRepository } from "../repository/ActivityRepository";
 
 export class TeacherService {
   private docenteRepository = AppDataSource.getRepository(Docente);
   private grupoRepository = AppDataSource.getRepository(Grupo);
   private userRepository = AppDataSource.getRepository(User);
-   private notificationService: NotificationService;
+  private notificationService: NotificationService;
+  private activityrepository: ActivityRepository;
+  
 
   constructor() {
     this.notificationService = new NotificationService();
+    this.activityrepository = new ActivityRepository();
   }
 
   async create(data: CreateDocenteDto) {
@@ -117,7 +121,7 @@ export class TeacherService {
   }
 
    async createActivity(data: CreateActivityDto) {
-    const actividad = await this.activityRepository.create(data);
+    const actividad = await this.activityrepository.create(data);
     
     // Notificación solo si es para un grupo específico
     if (data.grupoId) {
