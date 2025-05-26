@@ -1,19 +1,42 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Col, Container } from "react-bootstrap"
 import CustomNavbar from "../components/navbar"
 import Sidebar from "../components/sidebar"
 import PostForm from "../components/postform"
 import PostList from "../components/postlist"
 import Contacts from "../components/Contacts"
+import PostsService from "../services/PostsService"
 import "../styles/docente.css"
 
 const Docente = () => {
   const [posts, setPosts] = useState([])
 
-  const addPost = (newPost) => {
-    setPosts([newPost, ...posts])
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        const teacherId = localStorage.getItem('userId')
+        const postsData = await PostsService.getByTeacher(teacherId, token)
+        setPosts(postsData)
+      } catch (error) {
+        console.error("Error al cargar publicaciones:", error)
+      }
+    }
+    
+    loadPosts()
+  }, [])
+
+  const addPost = async (newPost) => {
+    try {
+      const token = localStorage.getItem('token')
+      const createdPost = await PostsService.create(newPost, [], token)
+      setPosts([createdPost, ...posts])
+    } catch (error) {
+      console.error("Error al crear publicación:", error)
+      throw error
+    }
   }
 
   return (
@@ -21,12 +44,10 @@ const Docente = () => {
       <CustomNavbar />
       <Container fluid className="content-container">
         <div className="content-wrapper">
-          {/* Sidebar Izquierdo - Opciones */}
           <Col md={3} className="sidebar-left-col">
             <Sidebar />
           </Col>
 
-          {/* Sección central - Crear publicación y lista de publicaciones */}
           <Col md={6} className="posts-section-col">
             <div className="posts-content">
               <PostForm addPost={addPost} />
@@ -34,7 +55,6 @@ const Docente = () => {
             </div> 
           </Col>
 
-          {/* Sidebar Derecho - notificaciones */}
           <Col md={3} className="sidebar-right-col">
             <Contacts />
           </Col>
@@ -44,5 +64,4 @@ const Docente = () => {
   )
 }
 
-export default Docente
-
+export default Docente;
