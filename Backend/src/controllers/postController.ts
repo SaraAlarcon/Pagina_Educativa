@@ -1,6 +1,6 @@
 // src/controllers/PostController.ts
 import { Request, Response } from "express";
-import { PostService } from "../services/postservices";
+import  PostService  from "../services/postservices";
 import { CreatePostDto,  } from "../dtos/postdto/CreatePost";
 import{UpdatePostDto} from "../dtos/postdto/UpdatePost"
 

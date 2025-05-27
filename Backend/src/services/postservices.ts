@@ -3,7 +3,7 @@ import { postRepository } from "../repository/PostRepository";
 import { CreatePostDto,  } from "../dtos/postdto/CreatePost";
 import {UpdatePostDto} from "../dtos/postdto/UpdatePost"
 
-export class PostService {
+export default class PostService {
   async create(data: CreatePostDto) {
     return await postRepository.create(data);
   }
