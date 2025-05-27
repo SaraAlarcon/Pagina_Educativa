@@ -21,7 +21,7 @@
   
   /* Columnas laterales */
   .sidebar-left-col {
-    position: sticky;
+    position: fixed;
     top: 70px;
     height: calc(100vh - 70px);
     height: calc(100vh - 70px);

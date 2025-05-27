@@ -104,48 +104,6 @@ const RegistroGrupos = () => {
               />
             </Form.Group>
 
-            <Form.Group className="mb-4">
-              <Form.Label>Asignar Docente</Form.Label>
-              <Form.Control
-                type="text"
-                value={docenteAsignado}
-                onChange={(e) => setDocenteAsignado(e.target.value)}
-                placeholder="Nombre del docente"
-                required
-              />
-            </Form.Group>
-
-            <div className="estudiantes-section">
-              <div className="estudiantes-header">
-                <h5 className="estudiantes-title">Estudiantes</h5>
-              </div>
-
-              {estudiantes.map((estudiante, index) => (
-                <div key={index} className="estudiante-item">
-                  <Form.Control
-                    type="text"
-                    placeholder={`Estudiante ${index + 1}`}
-                    value={estudiante}
-                    onChange={(e) => handleEstudianteChange(index, e.target.value)}
-                    required
-                  />
-                  {estudiantes.length > 1 && (
-                    <button
-                      type="button"
-                      className="remove-estudiante"
-                      onClick={() => handleRemoveEstudiante(index)}
-                      aria-label="Eliminar estudiante"
-                    >
-                      <FaTrash />
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <Button variant="secondary" className="btn-add-estudiante" onClick={handleAgregarEstudiante}>
-              <FaUserPlus /> Añadir Estudiante
-            </Button>
 
             <Button type="submit" className="btn-primary">
               <FaLayerGroup className="me-2" /> Registrar Grupo

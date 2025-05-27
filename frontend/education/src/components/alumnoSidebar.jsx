@@ -18,7 +18,7 @@ const SidebarAlumno = () => {
         <ul className="sidebar-menu">
           {/* Inicio */}
           <li className="sidebar-item active">
-            <div onClick={() => handleNavigation("/estudiante")} className="sidebar-link">
+            <div onClick={() => handleNavigation("/alumno")} className="sidebar-link">
               <div className="sidebar-icon">
                 <FaHome />
               </div>
@@ -28,7 +28,7 @@ const SidebarAlumno = () => {
 
           {/* Actividades */}
           <li className="sidebar-item">
-            <div onClick={() => handleNavigation("/estudiante/actividades")} className="sidebar-link">
+            <div onClick={() => handleNavigation("/actividades-estudiante")} className="sidebar-link">
               <div className="sidebar-icon">
                 <FaClipboardList />
               </div>
@@ -38,7 +38,7 @@ const SidebarAlumno = () => {
 
           {/* Clases */}
           <li className="sidebar-item">
-            <div onClick={() => handleNavigation("/estudiante/clases")} className="sidebar-link">
+            <div onClick={() => handleNavigation("/clases-estudiante")} className="sidebar-link">
               <div className="sidebar-icon">
                 <FaGraduationCap />
               </div>
@@ -48,7 +48,7 @@ const SidebarAlumno = () => {
 
           {/* Chats */}
           <li className="sidebar-item">
-            <div onClick={() => handleNavigation("/estudiante/chats")} className="sidebar-link">
+            <div onClick={() => handleNavigation("/chats-estudiante")} className="sidebar-link">
               <div className="sidebar-icon">
                 <FaComments />
               </div>
@@ -58,7 +58,7 @@ const SidebarAlumno = () => {
 
           {/* Calificaciones */}
           <li className="sidebar-item">
-            <div onClick={() => handleNavigation("/estudiante/calificaciones")} className="sidebar-link">
+            <div onClick={() => handleNavigation("/calificaciones-estudiante")} className="sidebar-link">
               <div className="sidebar-icon">
                 <FaChartBar />
               </div>

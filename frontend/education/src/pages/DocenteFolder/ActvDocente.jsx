@@ -2,17 +2,7 @@
 
 import { useState } from "react"
 import { Container, Col, Button, Form, Modal } from "react-bootstrap"
-import {
-  FaClipboardList,
-  FaPlus,
-  FaSearch,
-  FaCalendarAlt,
-  FaBook,
-  FaEdit,
-  FaTrash,
-  FaFileAlt,
-  FaUpload,
-} from "react-icons/fa"
+import {FaClipboardList,FaPlus,FaSearch,FaCalendarAlt,FaBook,FaEdit,FaTrash,FaFileAlt,FaUpload,} from "react-icons/fa"
 import Sidebar from "../../components/sidebar"
 import CustomNavbar from "../../components/navbar"
 import "../../styles/DocenteStyle/ActvDocente.css"

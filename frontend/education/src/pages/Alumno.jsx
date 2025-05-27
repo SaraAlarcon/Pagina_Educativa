@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Col, Container } from "react-bootstrap"
-import CustomNavbar from "../components/navbar"
+import NavbarAlumno from "../components/alumnoNavbar"
 import SidebarAlumno from "../components/alumnoSidebar"
 import PostListEstudiante from "../components/alumnoPostform"
 import Contacts from "../components/Contacts"
@@ -65,7 +65,7 @@ const Estudiante = () => {
 
   return (
     <div className="estudiante-page">
-      <CustomNavbar />
+      <NavbarAlumno />
       <Container fluid className="content-container">
         <div className="content-wrapper">
           {/* Sidebar Izquierdo - Opciones */}

@@ -13,6 +13,9 @@ import ClasesDocente from "./pages/DocenteFolder/ClasesDocente.jsx";
 import ClaseDetalleDocente from "./pages/DocenteFolder/ClaseDetalleDocente.jsx";
 import ActvDocente from "./pages/DocenteFolder/ActvDocente.jsx";
 import AsistenciaDocente from "./pages/DocenteFolder/AsistenciaDocente.jsx";
+import ActvEstudiante from "./pages/AlumnoFolder/ActvEstudiante.jsx";
+import ChatsAlumno from "./pages/AlumnoFolder/ChatsAlumno.jsx";
+import ClasesEstudiante from "./pages/AlumnoFolder/ClasesEstudiante.jsx";
 
 
 const App = () => {
@@ -31,6 +34,10 @@ const App = () => {
       <Route path="/clases/:id" element={<ClaseDetalleDocente/>} />
       <Route path="/actividades" element={<ActvDocente />} />
       <Route path="/estudiantes" element={<AsistenciaDocente />} />
+      <Route path="/actividades-estudiante" element={<ActvEstudiante />} />
+      <Route path="/chats-estudiante" element={<ChatsAlumno />} />
+      <Route path="/clases-estudiante" element={<ClasesEstudiante />} />
+      
 
     </Routes>
   );
