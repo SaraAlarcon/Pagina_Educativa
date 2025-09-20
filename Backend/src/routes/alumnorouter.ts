@@ -5,7 +5,7 @@ import { authenticateJWT } from "../middlewares/authMiddleware";
 const router = Router();
 const alumnoController = new AlumnoController();
 
-router.get("/", authenticateJWT, alumnoController.getAll.bind(alumnoController));
+router.get("/", authenticateJWT, (req, res) => alumnoController.getAll(req, res));
 router.post("/", authenticateJWT, alumnoController.create.bind(alumnoController));
 router.get("/:id", authenticateJWT, alumnoController.getById.bind(alumnoController));
 router.put("/:id", authenticateJWT, alumnoController.update.bind(alumnoController));

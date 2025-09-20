@@ -4,5 +4,4 @@ export class CreateDocenteDto {
   userId!: number;
   email!: string;
   password!: string;
-  grupoIds!: number[];
 }

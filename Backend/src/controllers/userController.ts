@@ -9,7 +9,7 @@ import { User } from '../entities/user';
 export class UserController {
   private userRepository = AppDataSource.getRepository(User);
 
-  async login(req: Request, res: Response) :Promise<void> {
+  login = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
       
@@ -21,29 +21,30 @@ export class UserController {
       });
       
       if (!user || !user.password) {
-         res.status(401).json({ message: 'Credenciales inválidas' });
+        return res.status(401).json({ message: 'Credenciales inválidas' });
       }
-
+      
       // 2. Validar contraseña
-      const isValid = await bcrypt.compare(password, user!.password);
+      const isValid = await bcrypt.compare(password, user.password);
+      
       if (!isValid) {
-         res.status(401).json({ message: 'Credenciales inválidas' });
+        return res.status(401).json({ message: 'Credenciales inválidas' });
       }
 
       // 3. Generar token
       const token = jwt.sign(
-        { userId: user!.id },
+        { userId: user.id },
         process.env.JWT_SECRET || 'fallback_secret',
         { expiresIn: '8h' }
       );
 
       // 4. Excluir password en la respuesta
-      const { password: _, ...userData } = user!;
-       res.json({ token, user: userData });
+      const { password: _, ...userData } = user;
+      return res.json({ token, user: userData });
       
     } catch (error) {
       console.error('Error en login:', error);
-       res.status(500).json({ message: 'Error en el servidor' });
+      return res.status(500).json({ message: 'Error en el servidor' });
     }
   }
 

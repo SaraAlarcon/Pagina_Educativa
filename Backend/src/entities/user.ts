@@ -16,22 +16,25 @@ export class User {
   @Column()
   password!: string;
 
-  // Relación con Docente (si existe, es docente)
-  @OneToOne(() => Docente, (docente) => docente.user, { nullable: true })
-  @JoinColumn()
+  @Column({ nullable: true })
+  docenteId!: number;
+
+  @Column({ nullable: true })
+  alumnoId!: number;
+
+  // Relación con Docente
+  @OneToOne(() => Docente, (docente) => docente.user)
+  @JoinColumn({ name: "docenteId" })
   docente?: Docente;
 
-  // Relación con Alumno (si existe, es alumno)
-  @OneToOne(() => Alumno, (alumno) => alumno.user, { nullable: true })
-  @JoinColumn()
+  // Relación con Alumno
+  @OneToOne(() => Alumno, (alumno) => alumno.user)
+  @JoinColumn({ name: "alumnoId" })
   alumno?: Alumno;
 
-  
   // Relación con Notificaciones
   @OneToMany(() => Notification, (notification) => notification.user)
   notifications!: Notification[];
-
-  // src/entities/User.ts
 
   @OneToMany(() => Message, (message) => message.sender)
   sentMessages!: Message[];

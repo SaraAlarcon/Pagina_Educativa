@@ -10,7 +10,7 @@ export class GrupoController {
     try {
       const data: CreateGrupoDto = req.body;
       const grupo = await this.service.create(data);
-      res.status(201).json(grupo);
+      res.status(201).json({message: "Grupo Registrado Exitosamente"});
     } catch (error) {
       res.status(400).json({ message: "Error al crear grupo" });
     }
@@ -18,7 +18,8 @@ export class GrupoController {
 
   async list(req: Request, res: Response) {
     try {
-      res.json(await this.service.list());
+      const groups = await this.service.list();
+      res.json(groups);
     } catch (error) {
       res.status(500).json({ message: "Error al listar grupos" });
     }
@@ -47,7 +48,7 @@ export class GrupoController {
       if (!grupo) {
         res.status(404).json({ message: "Grupo no encontrado" });
       }
-      res.json(grupo);
+      res.json({message: "Grupo Actualizado Exitosamente"});
     } catch (error) {
       res.status(400).json({ message: "Error al actualizar grupo" });
     }

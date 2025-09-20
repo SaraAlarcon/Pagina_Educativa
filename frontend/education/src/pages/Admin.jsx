@@ -20,12 +20,12 @@ const AdminPanel = () => {
                 <li></li>
               <li>
                 <Link to="/registro-estudiante" className="sidebar-link">
-                  <FaUserGraduate /> Registro Estudiante
+                  <FaUserGraduate /> Estudiantes
                 </Link>
               </li>
               <li>
                 <Link to="/registro-docente" className="sidebar-link">
-                  <FaChalkboardTeacher /> Registro Docente
+                  <FaChalkboardTeacher /> Docentes
                 </Link>
               </li>
               <li>

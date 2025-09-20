@@ -24,38 +24,30 @@ export class AlumnoService {
    * Crea un nuevo alumno con su usuario asociado y lo asigna a un grupo.
    */
   async create(data: CreateAlumnoDto) {
-    // 1. Validar que el email no esté registrado
-    const existingUser = await this.userRepository.findOne({ 
-      where: { email: data.email } 
+    // Validar email único
+    if (await this.userRepository.findOne({ where: { email: data.email } })) {
+      throw({
+        message: 'El email ya está registrado'
+      });
+    }
+
+    // Crear el alumno
+    const alumno = this.alumnoRepository.create({
+      NombreCompleto: data.NombreCompleto,
     });
-    if (existingUser) {
-      throw new Error('El email ya está registrado');
-    }
 
-    // 2. Validar que el grupo exista
-    const grupo = await this.grupoRepository.findOneBy({ id: data.grupoId });
-    if (!grupo) {
-      throw new Error("Grupo no encontrado");
-    }
+    // Guardar el estudiante primero para obtener su ID
+    await this.alumnoRepository.save(alumno);
 
-    // 3. Crear el usuario (con contraseña hasheada)
+    // Crear usuario asociado con el ID del alumno
     const user = this.userRepository.create({
       email: data.email,
       password: await bcrypt.hash(data.password, 10),
+      alumno: alumno // Asignar la relación con el alumno
     });
 
-    // 4. Crear el alumno
-    const alumno = this.alumnoRepository.create({
-      NombreCompleto: data.NombreCompleto,
-      grupo,
-      user, // Relación 1:1 con User
-    });
-
-    // 5. Guardar en transacción (atomicidad)
-    await AppDataSource.transaction(async (manager) => {
-      await manager.save(user);
-      await manager.save(alumno);
-    });
+    // Guardar el usuario
+    await this.userRepository.save(user);
 
     return alumno;
   }
@@ -142,7 +134,14 @@ export class AlumnoService {
    */
   async findAll() {
     return await this.alumnoRepository.find({
-      relations: ["user", "grupo"], // Carga User y Grupo
+      relations: ["user"],
+      select: {
+        id: true,
+        NombreCompleto: true,
+        user: {
+          email: true
+        }
+      }
     });
   }
 

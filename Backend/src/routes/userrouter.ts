@@ -1,5 +1,5 @@
 // src/routes/userRouter.ts
-import { Router } from 'express';
+import { Router, RequestHandler } from 'express';
 import { UserController } from '../controllers/userController';
 import { authenticateJWT } from '../middlewares/authMiddleware';
 
@@ -7,7 +7,7 @@ const router = Router();
 const userController = new UserController();
 
 // Rutas de autenticación
-router.post('/login', (req, res) => userController.login(req, res));
+router.post('/login', userController.login as unknown as RequestHandler);
 router.post('/logout', authenticateJWT, (req, res) => userController.logout(req, res));
 router.get('/validate', authenticateJWT, (req, res) => userController.validateToken(req, res));
 

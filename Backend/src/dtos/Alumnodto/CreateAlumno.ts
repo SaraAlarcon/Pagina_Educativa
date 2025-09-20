@@ -4,5 +4,4 @@ export class CreateAlumnoDto {
   userId!: number;
   email!: string;
   password!: string;
-  grupoId!: number;
 }

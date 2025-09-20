@@ -16,11 +16,13 @@ import AsistenciaDocente from "./pages/DocenteFolder/AsistenciaDocente.jsx";
 import ActvEstudiante from "./pages/AlumnoFolder/ActvEstudiante.jsx";
 import ChatsAlumno from "./pages/AlumnoFolder/ChatsAlumno.jsx";
 import ClasesEstudiante from "./pages/AlumnoFolder/ClasesEstudiante.jsx";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <Routes>
+    <>
+      <Routes>
       <Route path="/docente" element={<Docente />} />
       <Route path="/alumno" element={<Alumno />} />
       <Route path="/login" element={<Login />} />
@@ -37,9 +39,11 @@ const App = () => {
       <Route path="/actividades-estudiante" element={<ActvEstudiante />} />
       <Route path="/chats-estudiante" element={<ChatsAlumno />} />
       <Route path="/clases-estudiante" element={<ClasesEstudiante />} />
-      
+      <Route path="/registro-docente" element={<Registro_Docente />} />
 
     </Routes>
+    <ToastContainer />
+    </>
   );
 };
 

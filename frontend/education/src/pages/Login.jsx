@@ -65,11 +65,16 @@ const Login = () => {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("userId", user.id);
-    
-    // Redirigir según el rol
-    switch(user.role) {
+
+    // definir role del usuario
+    const role = !user.alumno && !user.docente  
+      ? 'admin' : user.alumno 
+      ? 'alumno' : user.docente 
+      ? 'docente' : '';
+
+    switch(role) {
       case "admin":
-        window.location.href = "/chats";
+        window.location.href = "/admin";
         break;
       case "docente":
         window.location.href = "/docente";
@@ -190,8 +195,6 @@ const Login = () => {
             required 
           />
           
-          <a href="#" className="forgot-password">¿Olvidó la contraseña?</a>
-          
           <button 
             type="submit" 
             className="custom-button"
@@ -219,14 +222,7 @@ const Login = () => {
           </div>
           <div className="custom-toggle-panel custom-toggle-right">
             <h1>¡Hola!</h1>
-            <p>Regístrese para obtener acceso a nuestros cursos</p>
-            <button 
-              className="toggle-button" 
-              onClick={() => setIsSignUp(true)}
-              disabled={isLoading}
-            >
-              Registrarse
-            </button>
+            <p>Inicie sesión para acceder a nuestra plataforma</p>
           </div>
         </div>
       </div>

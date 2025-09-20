@@ -23,6 +23,6 @@ export const AppDataSource = new DataSource({
   password: getRequiredEnv("DB_PASSWORD"),
   database: getRequiredEnv("DB_DATABASE"),
   entities: [path.join(__dirname, "../entities/*.{js,ts}")],
-  synchronize: false,
+  synchronize: true,
   logging: true,
 });

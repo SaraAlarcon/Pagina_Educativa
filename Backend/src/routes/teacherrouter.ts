@@ -3,9 +3,9 @@ import { TeacherController } from "../controllers/teacherController";
 import { authenticateJWT } from "../middlewares/authMiddleware";
 
 const router = Router();
-const teacherController = new TeacherController();
+const teacherController = new TeacherController(); 
 
-router.get("/", authenticateJWT, teacherController.getAll.bind(teacherController));
+router.get("/", authenticateJWT, authenticateJWT, (req, res) => teacherController.getAll(req, res));
 router.post("/", authenticateJWT, teacherController.create.bind(teacherController));
 router.get("/:id", authenticateJWT, teacherController.getById.bind(teacherController));
 router.put("/:id", authenticateJWT, teacherController.update.bind(teacherController));

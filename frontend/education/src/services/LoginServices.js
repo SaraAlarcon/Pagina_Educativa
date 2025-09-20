@@ -17,7 +17,11 @@ export const LoginService = {
         throw new Error(errorData.message || 'Error al iniciar sesión');
       }
 
-      return await response.json();
+      const data = await response.json();
+
+      console.log(data);
+
+      return data;
     } catch (error) {
       console.error('Login error:', error);
       throw error;

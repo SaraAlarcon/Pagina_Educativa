@@ -29,44 +29,30 @@ export class TeacherService {
       throw new Error('El email ya está registrado');
     }
 
-    // Validar grupos existentes
-    if (data.grupoIds && data.grupoIds.length > 0) {
-      const gruposExistentes = await this.grupoRepository.count({
-        where: { id: In(data.grupoIds) }
-      });
-      if (gruposExistentes !== data.grupoIds.length) {
-        throw new Error("Uno o más grupos no existen");
-      }
-    }
-
-    // Crear usuario asociado
+    // Crear docente primero
+    const docente = this.docenteRepository.create({
+      NombreCompleto: data.NombreCompleto
+    });
+    
+    // Guardar el docente primero para obtener su ID
+    await this.docenteRepository.save(docente);
+    
+    // Crear usuario asociado con el ID del docente
     const user = this.userRepository.create({
       email: data.email,
-      password: await bcrypt.hash(data.password, 10)
+      password: await bcrypt.hash(data.password, 10),
+      docente: docente // Asignar la relación con el docente
     });
 
-    // Crear docente
-    const docente = this.docenteRepository.create({
-      NombreCompleto: data.NombreCompleto,
-      grupos: data.grupoIds 
-        ? await this.grupoRepository.findBy({ id: In(data.grupoIds) }) 
-        : [],
-      user
-    });
-
-    // Guardar en transacción
-    await AppDataSource.transaction(async manager => {
-      await manager.save(user);
-      await manager.save(docente);
-    });
+    // Guardar el usuario
+    await this.userRepository.save(user);
 
     return docente;
   }
 
   async update(id: number, data: UpdateDocenteDto) {
     const docente = await this.docenteRepository.findOne({
-      where: { id },
-      relations: ["grupos", "user"]
+      where: { id }
     });
 
     if (!docente) throw new Error("Docente no encontrado");
@@ -74,49 +60,52 @@ export class TeacherService {
     // Actualizar datos básicos
     if (data.NombreCompleto) docente.NombreCompleto = data.NombreCompleto;
 
-    // Actualizar grupos
-    if (data.grupoIds) {
-      const grupos = await this.grupoRepository.findBy({ id: In(data.grupoIds) });
-      docente.grupos = grupos;
-    }
-
-    // Actualizar credenciales si se proporcionan
-    if (data.email && docente.user) {
-      docente.user.email = data.email;
-    }
-    if (data.password && docente.user) {
-      docente.user.password = await bcrypt.hash(data.password, 10);
-    }
-
     return await this.docenteRepository.save(docente);
   }
 
   async delete(id: number) {
-    const docente = await this.docenteRepository.findOne({
-      where: { id },
-      relations: ["user"]
-    });
+    try {
+      // Primero eliminar el usuario asociado
+      await this.userRepository
+        .createQueryBuilder()
+        .delete()
+        .from(User)
+        .where("docenteId = :id", { id })
+        .execute();
 
-    if (!docente) throw new Error("Docente no encontrado");
+      // Luego eliminar el docente
+      await this.docenteRepository
+        .createQueryBuilder()
+        .delete()
+        .from(Docente)
+        .where("id = :id", { id })
+        .execute();
 
-    await AppDataSource.transaction(async manager => {
-      if (docente.user) {
-        await manager.remove(User, docente.user);
-      }
-      await manager.remove(Docente, docente);
-    });
+    } catch (err: any) {
+      throw new Error(`Error al eliminar docente: ${err?.message || 'Error desconocido'}`);
+    }
   }
 
   async findById(id: number) {
     return await this.docenteRepository.findOne({
       where: { id },
-      relations: ["user", "grupos", "clases", "activities", "posts"],
+      relations: ["id", "NombreCompleto", "clases", "activities", "posts"],
     });
   }
 
   async findAll() {
     return await this.docenteRepository.find({
-      relations: ["user", "grupos", "clases", "activities", "posts"],
+      relations: ["user", "clases", "activities", "posts"],
+      select: {
+        id: true,
+        NombreCompleto: true,
+        user: {
+          email: true
+        },
+        clases: true,
+        activities: true,
+        posts: true
+      }
     });
   }
 

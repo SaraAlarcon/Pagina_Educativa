@@ -16,7 +16,8 @@ export class AlumnoController {
       const alumno = await this.alumnoService.create(data);
       res.status(201).json(alumno);
     } catch (error) {
-      res.status(500).json({ message: "error al crear alumno", error });
+      console.log(error)
+      res.status(500).json({ message: error.message });
     }
   }
 
@@ -66,7 +67,8 @@ export class AlumnoController {
       const alumnos = await this.alumnoService.findAll();
       res.json(alumnos);
     } catch (error) {
-      res.status(500).json({ message: "Error al obtener la lista de alumnos",error });
+      console.error(error);
+      res.status(500).json({ message: error });
     }
   }
 

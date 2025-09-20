@@ -42,7 +42,7 @@ export class TeacherController {
       const docente = await this.teacherService.update(id, data);
       
       if (docente) {
-        res.json(docente);
+        res.status(200).json({ message: "Docente Actualizado Exitosamente" });
       } else {
         res.status(404).json({ message: "Docente no encontrado" });
       }
@@ -57,7 +57,7 @@ export class TeacherController {
       await this.teacherService.delete(id);
       res.status(204).send();
     } catch (error) {
-      res.status(500).json({ message: "Error al eliminar docente",error });
+      res.status(500).json({ message: "Error al eliminar docente: " + error });
     }
   }
 
